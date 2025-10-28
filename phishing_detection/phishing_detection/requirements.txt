@@ -13,3 +13,7 @@ requests
 django-apscheduler
 email-validator
 ratelimit
+gunicorn 
+whitenoise 
+dj-database-url 
+psycopg2-binary
