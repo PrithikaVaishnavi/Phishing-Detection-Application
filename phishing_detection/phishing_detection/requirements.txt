@@ -1,0 +1,15 @@
+django 
+djangorestframework 
+pyspf 
+email-validator
+psycopg2-binary
+django-cors-headers
+django-ratelimit
+djangorestframework-simplejwt
+dkimpy
+pdfplumber
+urlextract
+requests
+django-apscheduler
+email-validator
+ratelimit
