@@ -12,6 +12,9 @@ import {
 } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
+// Backend API URL
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://phishing-detection-application.onrender.com';
+
 function Profile({ handleLogout }) {
     const [profile, setProfile] = useState(null);
     const [phoneNumber, setPhoneNumber] = useState('');
@@ -33,7 +36,7 @@ function Profile({ handleLogout }) {
 
             try {
                 // Set the authorization header
-                const response = await axios.get('http://localhost:8000/api/user-profile/', {
+                const response = await axios.get(`${API_BASE_URL}/api/user-profile/`, {
                     headers: {
                         'Authorization': `Bearer ${accessToken}`
                     }
@@ -45,13 +48,13 @@ function Profile({ handleLogout }) {
                 // If token expired, try to refresh
                 if (err.response?.status === 401) {
                     try {
-                        const { data } = await axios.post('http://localhost:8000/api/token/refresh/', {
+                        const { data } = await axios.post(`${API_BASE_URL}/api/token/refresh/`, {
                             refresh: refreshToken,
                         });
                         localStorage.setItem('access_token', data.access);
 
                         // Retry fetching profile with new token
-                        const retryResponse = await axios.get('http://localhost:8000/api/user-profile/', {
+                        const retryResponse = await axios.get(`${API_BASE_URL}/api/user-profile/`, {
                             headers: {
                                 'Authorization': `Bearer ${data.access}`
                             }
@@ -81,7 +84,7 @@ function Profile({ handleLogout }) {
         const accessToken = localStorage.getItem('access_token');
         
         try {
-            await axios.put('http://localhost:8000/api/user-profile/', 
+            await axios.put(`${API_BASE_URL}/api/user-profile/`, 
                 { phone_number: phoneNumber },
                 {
                     headers: {

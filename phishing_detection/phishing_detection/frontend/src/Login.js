@@ -12,6 +12,9 @@ import {
 } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 
+// Backend API URL
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://phishing-detection-application.onrender.com';
+
 function Login({ setIsAuthenticated }) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -25,7 +28,7 @@ function Login({ setIsAuthenticated }) {
         setLoading(true);
 
         try {
-            const response = await axios.post('http://localhost:8000/api/token/', {
+            const response = await axios.post(`${API_BASE_URL}/api/token/`, {
                 username,
                 password,
             });

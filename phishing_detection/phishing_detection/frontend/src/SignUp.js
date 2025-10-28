@@ -12,6 +12,9 @@ import {
 } from '@mui/material';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 
+// Backend API URL
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://phishing-detection-application.onrender.com';
+
 function SignUp() {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
@@ -30,7 +33,7 @@ function SignUp() {
             return;
         }
         try {
-            await axios.post('http://localhost:8000/api/register/', {
+            await axios.post(`${API_BASE_URL}/api/register/`, {
                 username,
                 email,
                 password,
