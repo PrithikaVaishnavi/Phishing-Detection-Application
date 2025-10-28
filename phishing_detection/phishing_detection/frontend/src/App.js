@@ -26,6 +26,9 @@ import {
 } from '@mui/material';
 import LogoutIcon from '@mui/icons-material/Logout';
 
+// Backend API URL - uses environment variable or defaults to production
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://phishing-detection-application.onrender.com';
+
 function App() {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [file, setFile] = useState(null);
@@ -76,7 +79,7 @@ function App() {
                     }
 
                     try {
-                        const response = await axios.post('http://localhost:8000/api/token/refresh/', {
+                        const response = await axios.post(`${API_BASE_URL}/api/token/refresh/`, {
                             refresh: refreshToken,
                         });
                         const { access } = response.data;
@@ -117,13 +120,13 @@ function App() {
 
         try {
             console.log('Uploading file:', file.name);
-            const response = await axios.post('http://localhost:8000/api/analyze-pdf/', formData, {
+            const response = await axios.post(`${API_BASE_URL}/api/analyze-pdf/`, formData, {
                 headers: { 
                     'Content-Type': 'multipart/form-data',
                 },
             });
             console.log('Analysis response:', response.data);
-            console.log('PDF URL:', `http://localhost:8000${response.data.pdf_url}`);
+            console.log('PDF URL:', `${API_BASE_URL}${response.data.pdf_url}`);
             setResult(response.data);
         } catch (error) {
             console.error("Error uploading file:", error);
@@ -179,7 +182,6 @@ function App() {
                                 }}
                                 style={{ display: 'none' }}
                                 id="file-upload"
-                                disabled={uploading}
                             />
                             <label htmlFor="file-upload">
                                 <Button variant="contained" component="span" disabled={uploading}>
@@ -217,7 +219,7 @@ function App() {
                                 <Button
                                     variant="contained"
                                     color="primary"
-                                    href={`http://localhost:8000${result.pdf_url}`}
+                                    href={`${API_BASE_URL}${result.pdf_url}`}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                 >
@@ -226,7 +228,7 @@ function App() {
                                 <Button
                                     variant="outlined"
                                     color="primary"
-                                    href={`http://localhost:8000${result.pdf_url}`}
+                                    href={`${API_BASE_URL}${result.pdf_url}`}
                                     download
                                 >
                                     Download PDF
@@ -238,7 +240,7 @@ function App() {
                                 ) : (
                                     <Box sx={{ position: 'relative', width: '100%', height: '600px' }}>
                                         <iframe
-                                            src={`http://localhost:8000${result.pdf_url}`}
+                                            src={`${API_BASE_URL}${result.pdf_url}`}
                                             width="100%"
                                             height="100%"
                                             title="PDF Viewer"

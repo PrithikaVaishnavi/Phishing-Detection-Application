@@ -109,7 +109,7 @@ SIMPLE_JWT = {
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),     # Refresh token lasts 1 day
 }
 
-CORS_ALLOWED_ORIGINS = ["http://localhost:3000"]
+CORS_ALLOWED_ORIGINS = ["http://localhost:3000","https://phishing-detection-application.onrender.com"]
 CORS_ALLOW_CREDENTIALS = True
 
 CORS_ALLOW_METHODS = [
